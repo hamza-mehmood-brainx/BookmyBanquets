@@ -777,9 +777,22 @@ const CustomerDashboard = () => {
                 ) : halls.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {halls.map((hall) => {
+                      // Utility to transform absolute URLs to relative URLs
+                      const transformImageUrl = (url) => {
+                        if (!url) return url;
+                        // If it's already a relative URL, return as is
+                        if (url.startsWith('/')) return url;
+                        // Transform absolute URLs to relative URLs
+                        if (url.includes('/uploads/halls/')) {
+                          const match = url.match(/\/uploads\/halls\/.+$/);
+                          return match ? match[0] : url;
+                        }
+                        return url;
+                      };
+
                       // Parse hall images - API returns comma-separated URLs in 'image' field
                       const hallImages = hall.image ? 
-                        hall.image.split(',').map(url => url.trim()).filter(url => url) : 
+                        hall.image.split(',').map(url => transformImageUrl(url.trim())).filter(url => url) : 
                         ["/placeholder.svg"]
                       
                       return (

@@ -66,13 +66,26 @@ const HeroGallery: React.FC<HeroGalleryProps> = ({ hallData }) => {
   const [loading, setLoading] = useState(true);
   const [images, setImages] = useState(fallbackImages);
 
+  // Utility to transform absolute URLs to relative URLs
+  const transformImageUrl = (url: string) => {
+    if (!url) return url;
+    // If it's already a relative URL, return as is
+    if (url.startsWith('/')) return url;
+    // Transform absolute URLs to relative URLs
+    if (url.includes('/uploads/halls/')) {
+      const match = url.match(/\/uploads\/halls\/.+$/);
+      return match ? match[0] : url;
+    }
+    return url;
+  };
+
   useEffect(() => {
     // Process hall images from backend
     if (hallData?.imageURLs) {
       const imageUrls = hallData.imageURLs.split(',').filter(url => url.trim());
       if (imageUrls.length > 0) {
         const processedImages = imageUrls.map((url, index) => ({
-          url: url.trim(),
+          url: transformImageUrl(url.trim()),
           caption: `${hallData.name} - View ${index + 1}`
         }));
         setImages(processedImages);

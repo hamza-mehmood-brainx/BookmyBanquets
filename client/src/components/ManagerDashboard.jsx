@@ -775,11 +775,27 @@ const Dashboard = () => {
   const pkr = (n) => new Intl.NumberFormat('en-PK', { style: 'currency', currency: 'PKR', maximumFractionDigits: 0 }).format(Number(n || 0));
 
   // Helper: first image (backend stores comma-separated string)
+  // Utility to transform absolute URLs to relative URLs
+  const transformImageUrl = (url) => {
+    if (!url) return url;
+    // If it's already a relative URL, return as is
+    if (url.startsWith('/')) return url;
+    // Transform absolute URLs to relative URLs
+    if (url.includes('/uploads/halls/')) {
+      const match = url.match(/\/uploads\/halls\/.+$/);
+      return match ? match[0] : url;
+    }
+    return url;
+  };
+
   const firstImage = (imageURLs) => {
     if (!imageURLs) return '/placeholder.svg?height=80&width=120';
-    if (Array.isArray(imageURLs)) return imageURLs[0] || '/placeholder.svg?height=80&width=120';
+    if (Array.isArray(imageURLs)) {
+      const first = imageURLs[0];
+      return first ? transformImageUrl(first) : '/placeholder.svg?height=80&width=120';
+    }
     const first = String(imageURLs).split(',').map(s => s.trim()).filter(Boolean)[0];
-    return first || '/placeholder.svg?height=80&width=120';
+    return first ? transformImageUrl(first) : '/placeholder.svg?height=80&width=120';
   };
 
   // NEW: fetch owned halls

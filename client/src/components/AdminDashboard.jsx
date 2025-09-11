@@ -413,7 +413,16 @@ const AdminDashboard = () => {
             >
               <div className="relative h-48">
                 <img
-                  src={hall.imageURLs?.split(',')[0] || 'https://images.pexels.com/photos/169190/pexels-photo-169190.jpeg'}
+                  src={(() => {
+                    const firstImage = hall.imageURLs?.split(',')[0];
+                    if (!firstImage) return 'https://images.pexels.com/photos/169190/pexels-photo-169190.jpeg';
+                    // Transform absolute URLs to relative URLs
+                    if (firstImage.includes('/uploads/halls/')) {
+                      const match = firstImage.match(/\/uploads\/halls\/.+$/);
+                      return match ? match[0] : firstImage;
+                    }
+                    return firstImage;
+                  })()}
                   alt={hall.name}
                   className="w-full h-full object-cover"
                 />
@@ -559,7 +568,16 @@ const AdminDashboard = () => {
               {/* Hall Images */}
               <div className="mb-6">
                 <img
-                  src={selectedHall.imageURLs?.split(',')[0] || 'https://images.pexels.com/photos/169190/pexels-photo-169190.jpeg'}
+                  src={(() => {
+                    const firstImage = selectedHall.imageURLs?.split(',')[0];
+                    if (!firstImage) return 'https://images.pexels.com/photos/169190/pexels-photo-169190.jpeg';
+                    // Transform absolute URLs to relative URLs
+                    if (firstImage.includes('/uploads/halls/')) {
+                      const match = firstImage.match(/\/uploads\/halls\/.+$/);
+                      return match ? match[0] : firstImage;
+                    }
+                    return firstImage;
+                  })()}
                   alt={selectedHall.name}
                   className="w-full h-64 object-cover rounded-lg"
                 />

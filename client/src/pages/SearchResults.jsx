@@ -65,7 +65,15 @@ const SearchResults = () => {
           capacity: hall.capacity,
           rating: hall.rating || 0,
           reviewCount: hall.reviewCount || 0,
-          images: hall.image ? hall.image.split(',').map(img => img.trim()) : [],
+          images: hall.image ? hall.image.split(',').map(img => {
+            const trimmed = img.trim();
+            // Transform absolute URLs to relative URLs
+            if (trimmed.includes('/uploads/halls/')) {
+              const match = trimmed.match(/\/uploads\/halls\/.+$/);
+              return match ? match[0] : trimmed;
+            }
+            return trimmed;
+          }) : [],
           featured: hall.featured || false,
           description: hall.description || "",
           amenities: hall.amenities || []
