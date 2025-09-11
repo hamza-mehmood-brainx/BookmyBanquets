@@ -23,7 +23,20 @@ export const SocketProvider = ({ children }) => {
     console.log('SocketContext debug:', { user: !!user, token: !!token, hasUserData: !!user });
     if (user && token) {
       // Initialize socket connection
-      const newSocket = io(import.meta.env.VITE_API_URL || window.location.origin, {
+      // Determine the correct WebSocket URL
+      const getSocketUrl = () => {
+        if (import.meta.env.VITE_API_URL) {
+          return import.meta.env.VITE_API_URL;
+        }
+        // Fallback logic
+        if (window.location.hostname === 'localhost') {
+          return 'http://localhost:3000';
+        } else {
+          return 'http://13.53.187.108:3000';
+        }
+      };
+
+      const newSocket = io(getSocketUrl(), {
         auth: {
           token: token
         },

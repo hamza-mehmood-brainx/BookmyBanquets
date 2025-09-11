@@ -1,10 +1,18 @@
+# API redirects (must come before catch-all)
 [[redirects]]
   from = "/api/*"
   to = "http://13.53.187.108:3000/api/:splat"
   status = 200
   force = true
 
-# Catch-all redirect for React Router (must come after API redirect)
+# Static file uploads redirect (must come before catch-all)
+[[redirects]]
+  from = "/uploads/*"
+  to = "http://13.53.187.108:3000/uploads/:splat"
+  status = 200
+  force = true
+
+# Catch-all redirect for React Router (must come LAST)
 [[redirects]]
   from = "/*"
   to = "/index.html"
