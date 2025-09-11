@@ -11,7 +11,7 @@ const HallCard = ({ name, rating, location, image, type = "Indoor" }) => {
           alt={name}
           className="w-full h-full object-cover"
           onError={(e) => {
-            e.target.src = 'https://via.placeholder.com/400x300?text=Venue+Image';
+            e.target.src = 'https://placehold.co/400x300?text=Venue+Image';
           }}
         />
         {/* Type Badge */}

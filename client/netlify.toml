@@ -5,6 +5,13 @@
   status = 200
   force = true
 
+# Socket.IO redirect (must come before catch-all)
+[[redirects]]
+  from = "/socket.io/*"
+  to = "http://13.53.187.108:3000/socket.io/:splat"
+  status = 200
+  force = true
+
 # Static file uploads redirect (must come before catch-all)
 [[redirects]]
   from = "/uploads/*"

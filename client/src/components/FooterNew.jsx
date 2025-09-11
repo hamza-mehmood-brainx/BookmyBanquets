@@ -18,7 +18,7 @@ const Footer = () => {
           <div>
             <div className="mb-6">
               <img
-                src={ "https://via.placeholder.com/150x50"}
+                src={ "https://placehold.co/150x50?text=Logo"}
                 alt="BookMyBanquets"
                 className="h-10"
               />

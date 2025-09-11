@@ -44,7 +44,7 @@ const Header = ({ isScrolled }) => {
         <div className="flex items-center">
           <a href="/" className="flex items-center">
             <img
-              src={logo || "https://via.placeholder.com/150x50"}
+              src={logo || "https://placehold.co/150x50?text=Logo"}
               alt="BookMyBanquets"
               className="h-10"
             />
@@ -142,7 +142,7 @@ const Header = ({ isScrolled }) => {
             <div className="flex items-center justify-between mb-8">
               <a href="/" className="flex items-center">
                 <img
-                  src={logo || "https://via.placeholder.com/150x50"}
+                  src={logo || "https://placehold.co/150x50?text=Logo"}
                   alt="BookMyBanquets"
                   className="h-8"
                 />

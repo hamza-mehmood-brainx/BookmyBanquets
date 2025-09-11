@@ -23,24 +23,16 @@ export const SocketProvider = ({ children }) => {
     console.log('SocketContext debug:', { user: !!user, token: !!token, hasUserData: !!user });
     if (user && token) {
       // Initialize socket connection
-      // Determine the correct WebSocket URL
-      const getSocketUrl = () => {
-        if (import.meta.env.VITE_API_URL) {
-          return import.meta.env.VITE_API_URL;
-        }
-        // Fallback logic
-        if (window.location.hostname === 'localhost') {
-          return 'http://localhost:3000';
-        } else {
-          return 'http://13.53.187.108:3000';
-        }
-      };
-
-      const newSocket = io(getSocketUrl(), {
+      // Use the same origin (Netlify will redirect to backend via netlify.toml)
+      const socketUrl = import.meta.env.VITE_API_URL || window.location.origin;
+      
+      const newSocket = io(socketUrl, {
         auth: {
           token: token
         },
-        autoConnect: true
+        autoConnect: true,
+        // Force polling for production to work with Netlify redirects
+        transports: window.location.hostname === 'localhost' ? ['websocket', 'polling'] : ['polling']
       });
 
       // Connection event handlers
