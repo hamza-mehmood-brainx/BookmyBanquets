@@ -1,0 +1,11 @@
+[[redirects]]
+  from = "/api/*"
+  to = "http://13.53.187.108:3000/api/:splat"
+  status = 200
+  force = true
+
+# Catch-all redirect for React Router (must come after API redirect)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

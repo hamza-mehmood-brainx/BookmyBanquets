@@ -43,7 +43,7 @@ const Register = () => {
     setIsSubmitted(true);
     try {
       const res = await axios.post(
-        "http://13.53.187.108:3000/api/v1/user/register",
+        "/api/v1/user/register",
         formData
       );
       console.log("Response:", res);
